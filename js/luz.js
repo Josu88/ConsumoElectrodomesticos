@@ -1,6 +1,6 @@
 "use strict";
 
-import calcPrices from "js/precio.js";
+import calcPrices from "/js/precio.js";
 
 //Array de los distintos electrodomésticos
 const devices = [
@@ -49,8 +49,21 @@ let counter = 1;
 const form = document.querySelector("form.search");
 const app = document.querySelector("section.app");
 const boton = form.querySelector("button.btnForm");
+const contentArray = document.querySelector("section.seeArray");
 
 //FUNCIONES
+
+const showArray = (array) => {
+  for (const element of array) {
+    let seeArray = document.createElement("div");
+    seeArray.innerHTML = drawData(element);
+    contentArray.appendChild(seeArray);
+  }
+};
+
+const drawData = (element) => {
+  return `<h2>${element.name}</h2> <p>${element.consumption}</p> <p>${element.unit}</p> <p>${element.price}</p>`;
+};
 
 //Arrow funtion para que aparezca un parrafo con el mensaje de error
 const writeMessage = (message) => {
@@ -82,6 +95,8 @@ const doSearch = async () => {
       let arrayLuz = JSON.parse(data.contents);
       console.log(arrayLuz["00-01"]);
       console.log(arrayLuz);
+      calcPrices(arrayLuz, devices);
+      showArray(devices);
     } else {
       //Si no sacamos por consola un mensaje de error
       writeMessage("Hubo un error haciendo la petición");
