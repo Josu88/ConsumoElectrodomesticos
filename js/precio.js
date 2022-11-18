@@ -31,3 +31,4 @@ const Hours = () => {
 //const betterAndWorstHour = (arrayLuz) => {};
 
 export default calcPrices;
+export { Hours };

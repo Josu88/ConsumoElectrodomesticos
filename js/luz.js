@@ -1,44 +1,51 @@
 "use strict";
 
 import calcPrices from "/js/precio.js";
+import { Hours } from "/js/precio.js";
 
 //Array de los distintos electrodomésticos
 const devices = [
   {
-    name: "frigorífico",
+    name: "Frigorífico",
     consumption: 0.65,
     unit: "Mwh",
     price: 0,
+    img: "/img/frigorifico.jpg",
   },
   {
-    name: "congelador",
+    name: "Congelador",
     consumption: 0.55,
     unit: "Mwh",
     price: 0,
+    img: "/img/congelador.jpg",
   },
   {
-    name: "lavadora",
+    name: "Lavadora",
     consumption: 0.35,
     unit: "Mwh",
     price: 0,
+    img: "/img/lavadora.jpg",
   },
   {
-    name: "lavavajilla",
+    name: "Lavavajilla",
     consumption: 0.25,
     unit: "Mwh",
     price: 0,
+    img: "/img/lavavajilla.jpg",
   },
   {
-    name: "secador",
+    name: "Secador",
     consumption: 0.25,
     unit: "Mwh",
     price: 0,
+    img: "/img/secador.jpg",
   },
   {
-    name: "televisor",
+    name: "Televisor",
     consumption: 0.25,
     unit: "Mwh",
     price: 0,
+    img: "/img/televisor.jpg",
   },
 ];
 
@@ -62,7 +69,8 @@ const showArray = (array) => {
 };
 
 const drawData = (element) => {
-  return `<h2>${element.name}</h2> <p>${element.consumption}</p> <p>${element.unit}</p> <p>${element.price}</p>`;
+  const hour = Hours();
+  return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}</p> <img src = "${element.img}">`;
 };
 
 //Arrow funtion para que aparezca un parrafo con el mensaje de error
