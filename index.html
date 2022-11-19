@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Precios de la Luz</title>
     <!--Enlazamos el archivo JavaScript al Html-->
-    <script src="/js/luz.js" type="module" defer></script>
-    <script src="/js/precio.js" type="module" defer></script>
+    <script src="./js/luz.js" type="module" defer></script>
+    <script src="./js/precio.js" type="module" defer></script>
     <!--Enlazamos el archivo css al html-->
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <h1>Precios de la luz</h1>
@@ -18,8 +18,20 @@
     <section class="app">
     <p>Pulsa Buscar para ver los Precios de las luz por horas...</p>
     </section>
-    <section class="seeArray"></section>
-  <button class="btnForm" onclick="writeCont">Buscar</button>
+
+    <img src=""/>
+
+    <label id="selectDevices">Devices:</label>
+          <select class="SelectDevices">
+            <option value="frigorífico">frigorífico</option>
+            <option value="congelador">Congelador</option>
+            <option value="lavadora">lavadora</option>
+            <option value="lavavajilla">lavavajilla</option>
+            <option value="secador">secador</option>
+            <option value="televisor"></option>
+          </select>
+
+  <button class="btnForm">Buscar</button>
   </form>
   </body>
 </html>
