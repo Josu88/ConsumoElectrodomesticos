@@ -4,7 +4,6 @@ import calcPrices from "/js/precio.js";
 import { Hours } from "/js/precio.js";
 import { betterAndWorstHour } from "/js/precio.js";
 
-
 //Array de los distintos electrodomésticos
 const devices = [
   {
@@ -62,28 +61,21 @@ const select = document.querySelector("#SelectDevices");
 const contentArray = document.querySelector("section.seeArray");
 const bwHours = document.querySelector("section.bwHours");
 
+//Definimos la variable para guardar en el localstorage
+let Storage = window.localStorage;
 
 //FUNCIONES
-
-const showArray = (array) => {
-  for (const element of array) {
-    let seeArray = document.createElement("div");
-    seeArray.innerHTML = drawData(element);
-    contentArray.appendChild(seeArray);
-  }
-};
-
-const drawData = (element) => {
-  const hour = Hours();
-  return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}</p> <img src = "${element.img}">`;
-};
 
 //Arrow funtion para que aparezca un parrafo con el mensaje de error
 const writeMessage = (message) => {
   app.innerHTML = `<p>${message}</p>`;
 };
-
+//Arrow funtion para escribir la mejor y peor hora en el elemnto
 const writeBetterAndWorstHour = (betterHour, worstHour) => {
+  //Guardamos datos en el localstorage
+  Storage.setItem("MejorHora", betterHour);
+  Storage.setItem("PeorHora", worstHour);
+  //Escribimos la mejor y peor hora en el elemento
   bwHours.innerHTML = `<p>Actualmente la hora que la luz cuesta menos es entre ${betterHour}h y la hora en la que la luz cuesta mas es entre ${worstHour}h</p>`;
 };
 
@@ -95,12 +87,21 @@ const showArray = (array) => {
       seeArray.innerHTML = drawData(element);
       contentArray.appendChild(seeArray);
       contentArray.replaceChild(seeArray, contentArray.firstChild);
+      //Guardamos datos en el localstorage
+      Storage.setItem("Device", select.value);
     }
   }
 };
 
+//Arrow funtion para escribir en el h2
 const drawData = (element) => {
   const hour = Hours();
+  //Guardamos datos en el localstorage
+  Storage.setItem("Hora:", hour);
+  Storage.setItem("Consumo por Hora:", element.consumption);
+  Storage.setItem("Precio Hora:", element.price);
+  Storage.setItem("Imagen", element.img);
+  //Escribimos datos en el h2
   return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}€</p> <img src = "${element.img}">`;
 };
 
@@ -122,11 +123,6 @@ const doSearch = async () => {
       //Convertir a array el JSON
       let arrayLuz = JSON.parse(data.contents);
 
-      //Definimos la variable para guardar en el localstorage
-      let Storage = window.localStorage;
-
-      Storage.setItem("Device", devices[select]);
-
       //Calculamos los precios de los aparatos llamando a la funcion
       calcPrices(arrayLuz, devices);
 
@@ -134,6 +130,11 @@ const doSearch = async () => {
       const [betterHour, worstHour] = betterAndWorstHour(arrayLuz);
       writeBetterAndWorstHour(betterHour, worstHour);
 
+      //Hayamos la fecha actual
+      let ObDate = new Date();
+      let dateNow = ObDate.toDateString();
+      //Guardamos datos en el localstorage
+      Storage.setItem("Fecha:", dateNow);
 
       showArray(devices);
     } else {
