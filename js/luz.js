@@ -4,6 +4,7 @@ import calcPrices from "/js/precio.js";
 import { Hours } from "/js/precio.js";
 import { betterAndWorstHour } from "/js/precio.js";
 
+
 //Array de los distintos electrodomésticos
 const devices = [
   {
@@ -61,7 +62,21 @@ const select = document.querySelector("#SelectDevices");
 const contentArray = document.querySelector("section.seeArray");
 const bwHours = document.querySelector("section.bwHours");
 
+
 //FUNCIONES
+
+const showArray = (array) => {
+  for (const element of array) {
+    let seeArray = document.createElement("div");
+    seeArray.innerHTML = drawData(element);
+    contentArray.appendChild(seeArray);
+  }
+};
+
+const drawData = (element) => {
+  const hour = Hours();
+  return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}</p> <img src = "${element.img}">`;
+};
 
 //Arrow funtion para que aparezca un parrafo con el mensaje de error
 const writeMessage = (message) => {
@@ -118,6 +133,7 @@ const doSearch = async () => {
       //Calculamos la mejor y peor hora para consumir luz
       const [betterHour, worstHour] = betterAndWorstHour(arrayLuz);
       writeBetterAndWorstHour(betterHour, worstHour);
+
 
       showArray(devices);
     } else {
