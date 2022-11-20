@@ -2,6 +2,8 @@
 
 import calcPrices from "/js/precio.js";
 import { Hours } from "/js/precio.js";
+import { betterAndWorstHour } from "/js/precio.js";
+
 
 //Array de los distintos electrodomésticos
 const devices = [
@@ -50,13 +52,16 @@ const devices = [
 ];
 
 //Definimos las variables a usar
-let counter = 1;
+let counter = 0;
 
 //Seleccionamos el cuadro de texto del formulario del html
 const form = document.querySelector("form.search");
 const app = document.querySelector("section.app");
 const boton = form.querySelector("button.btnForm");
+const select = document.querySelector("#SelectDevices");
 const contentArray = document.querySelector("section.seeArray");
+const bwHours = document.querySelector("section.bwHours");
+
 
 //FUNCIONES
 
@@ -78,10 +83,25 @@ const writeMessage = (message) => {
   app.innerHTML = `<p>${message}</p>`;
 };
 
-//Arrow funtion para contar las pulsaciones de un boton del formulario
-let writeCont = () => {
-  let Num = counter++;
-  return Num;
+const writeBetterAndWorstHour = (betterHour, worstHour) => {
+  bwHours.innerHTML = `<p>Actualmente la hora que la luz cuesta menos es entre ${betterHour}h y la hora en la que la luz cuesta mas es entre ${worstHour}h</p>`;
+};
+
+//Funcion que dibuja el array en el html
+const showArray = (array) => {
+  for (const element of array) {
+    if (element.name === select.value) {
+      let seeArray = document.createElement("div");
+      seeArray.innerHTML = drawData(element);
+      contentArray.appendChild(seeArray);
+      contentArray.replaceChild(seeArray, contentArray.firstChild);
+    }
+  }
+};
+
+const drawData = (element) => {
+  const hour = Hours();
+  return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}€</p> <img src = "${element.img}">`;
 };
 
 //Arrow Function para sacar datos de la api y mandarselos a otra funcion para mostrarlos
@@ -101,9 +121,20 @@ const doSearch = async () => {
     if (response.ok) {
       //Convertir a array el JSON
       let arrayLuz = JSON.parse(data.contents);
-      console.log(arrayLuz["00-01"]);
-      console.log(arrayLuz);
+
+      //Definimos la variable para guardar en el localstorage
+      let Storage = window.localStorage;
+
+      Storage.setItem("Device", devices[select]);
+
+      //Calculamos los precios de los aparatos llamando a la funcion
       calcPrices(arrayLuz, devices);
+
+      //Calculamos la mejor y peor hora para consumir luz
+      const [betterHour, worstHour] = betterAndWorstHour(arrayLuz);
+      writeBetterAndWorstHour(betterHour, worstHour);
+
+
       showArray(devices);
     } else {
       //Si no sacamos por consola un mensaje de error
@@ -118,21 +149,21 @@ const doSearch = async () => {
 const interval = async (e) => {
   e.preventDefault();
 
-  //Definimos las variables a usar en la funcion
-  let miliSegs = 0;
+  let SetIn = [];
+
+  //Aumentamos el contador
+  counter++;
 
   //Comprobamos cuantas veces pulsamos el boton
-  if (writeCont() < 2) {
-    miliSegs = 1000;
+  if (counter < 2) {
+    SetIn = doSearch();
   } else {
-    miliSegs = 300000;
+    //Si esta bien ejecutamos la funcion con el setinterval
+    SetIn = setInterval(doSearch, 3000);
   }
-
-  //Si esta bien ejecutamos la funcion con el setinterval
-  const SetIn = setInterval(doSearch, miliSegs);
-
   return SetIn;
 };
 
 //Añadimos el event listener al boton del formulario
 boton.addEventListener("click", interval);
+
