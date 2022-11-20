@@ -73,8 +73,8 @@ const writeMessage = (message) => {
 //Arrow funtion para escribir la mejor y peor hora en el elemnto
 const writeBetterAndWorstHour = (betterHour, worstHour) => {
   //Guardamos datos en el localstorage
-  Storage.setItem("MejorHora", betterHour);
-  Storage.setItem("PeorHora", worstHour);
+  Storage.setItem("MejorHora:", betterHour);
+  Storage.setItem("PeorHora:", worstHour);
   //Escribimos la mejor y peor hora en el elemento
   bwHours.innerHTML = `<p>Actualmente la hora que la luz cuesta menos es entre ${betterHour}h y la hora en la que la luz cuesta mas es entre ${worstHour}h</p>`;
 };
@@ -88,7 +88,7 @@ const showArray = (array) => {
       contentArray.appendChild(seeArray);
       contentArray.replaceChild(seeArray, contentArray.firstChild);
       //Guardamos datos en el localstorage
-      Storage.setItem("Device", select.value);
+      Storage.setItem("Device:", select.value);
     }
   }
 };
@@ -100,7 +100,7 @@ const drawData = (element) => {
   Storage.setItem("Hora:", hour);
   Storage.setItem("Consumo por Hora:", element.consumption);
   Storage.setItem("Precio Hora:", element.price);
-  Storage.setItem("Imagen", element.img);
+  Storage.setItem("Imagen:", element.img);
   //Escribimos datos en el h2
   return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}€</p> <img src = "${element.img}">`;
 };
