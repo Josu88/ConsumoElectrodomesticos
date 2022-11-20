@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Precios de la Luz</title>
     <!--Enlazamos el archivo JavaScript al Html-->
-    <script src="js/luz.js" type="module" defer></script>
-    <script src="/js/precio.js" type="module" defer></script>
+    <script src="./js/luz.js" type="module" defer></script>
+    <script src="./js/precio.js" type="module" defer></script>
     <!--Enlazamos el archivo css al html-->
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
     <h1>Precios de la luz</h1>
@@ -18,7 +18,21 @@
     <section class="app">
     <p>Pulsa Buscar para ver los Precios de las luz por horas...</p>
     </section>
-  <button class="btnForm" onclick="writeCont">Buscar</button>
+
+    <img src=""/>
+
+    <label>Elige el electrodoméstico del que quieres saber su precio de la luz:</label>
+          <select id="SelectDevices">
+            <option value="Frigorífico">Frigorífico</option>
+            <option value="Congelador">Congelador</option>
+            <option value="Lavadora">Lavadora</option>
+            <option value="Lavavajilla">Lavavajilla</option>
+            <option value="Secador">Secador</option>
+            <option value="Televisor">Televisor</option>
+          </select>
+  <button class="btnForm">Buscar</button>
   </form>
+  <section class="seeArray"></section>
+  <section class="bwHours"></section>
   </body>
 </html>
