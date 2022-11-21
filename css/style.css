@@ -6,8 +6,8 @@ header {
   width: 100vh;
   background-color: black;
   color: white;
-  padding-left: 35vh;
-  padding-right: 35vh;
+  padding-left: 50vh;
+  padding-right: 50vh;
 }
 
 body {
@@ -29,13 +29,10 @@ form {
   display: flex;
   justify-content: center;
   flex-direction: row-reverse;
-  border: 0.15rem solid;
-  border-color: black;
-  border-radius: 0.5rem;
   width: min-content;
   padding-right: 4rem;
   padding-left: 1rem;
-  margin-left: 36rem;
+  margin-left: 45rem;
   margin-top: 1rem;
 }
 
@@ -44,3 +41,4 @@ form {
   color: white;
   text-align: center;
 }
+
