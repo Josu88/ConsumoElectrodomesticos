@@ -1,0 +1,46 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+  width: 100vh;
+  background-color: black;
+  color: white;
+  padding-left: 35vh;
+  padding-right: 35vh;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-bottom: 0.15rem solid;
+}
+
+form {
+  margin-top: 1rem;
+}
+
+.data {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+  border: 0.15rem solid;
+  border-color: black;
+  border-radius: 0.5rem;
+  width: min-content;
+  padding-right: 4rem;
+  padding-left: 1rem;
+  margin-left: 36rem;
+  margin-top: 1rem;
+}
+
+.btnForm {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
