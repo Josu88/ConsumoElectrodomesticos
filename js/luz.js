@@ -60,33 +60,37 @@ const boton = form.querySelector("button.btnForm");
 const select = document.querySelector("#SelectDevices");
 const contentArray = document.querySelector("section.seeArray");
 const bwHours = document.querySelector("section.bwHours");
+const img = document.querySelector("section.photo");
 
 //Definimos la variable para guardar en el localstorage
 let Storage = window.localStorage;
 
 //FUNCIONES
 
-//Arrow funtion para que aparezca un parrafo con el mensaje de error
-const writeMessage = (message) => {
-  app.innerHTML = `<p>${message}</p>`;
-};
 //Arrow funtion para escribir la mejor y peor hora en el elemnto
 const writeBetterAndWorstHour = (betterHour, worstHour) => {
   //Guardamos datos en el localstorage
   Storage.setItem("MejorHora:", betterHour);
   Storage.setItem("PeorHora:", worstHour);
   //Escribimos la mejor y peor hora en el elemento
-  bwHours.innerHTML = `<p>Actualmente la hora que la luz cuesta menos es entre ${betterHour}h y la hora en la que la luz cuesta mas es entre ${worstHour}h</p>`;
+  bwHours.innerHTML = `<p>Hora más barata: ${betterHour}h</p> <p>Hora más cara: ${worstHour}h</p>`;
 };
 
 //Funcion que dibuja el array en el html
 const showArray = (array) => {
   for (const element of array) {
     if (element.name === select.value) {
+      let photo = document.createElement("img");
       let seeArray = document.createElement("div");
+
+      photo.src = element.img;
       seeArray.innerHTML = drawData(element);
+
       contentArray.appendChild(seeArray);
+      img.appendChild(photo);
+
       contentArray.replaceChild(seeArray, contentArray.firstChild);
+      img.replaceChild(photo, img.firstChild);
       //Guardamos datos en el localstorage
       Storage.setItem("Device:", select.value);
     }
@@ -102,7 +106,7 @@ const drawData = (element) => {
   Storage.setItem("Precio Hora:", element.price);
   Storage.setItem("Imagen:", element.img);
   //Escribimos datos en el h2
-  return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}€</p> <img src = "${element.img}">`;
+  return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}€</p>`;
 };
 
 //Arrow Function para sacar datos de la api y mandarselos a otra funcion para mostrarlos
@@ -114,9 +118,6 @@ const doSearch = async () => {
     const response = await fetch(url);
 
     const data = await response.json();
-
-    //Sacamos un mensaje por el parafo
-    writeMessage("Cargando Datos....");
 
     //Comprobamos si la respuesta esta bien
     if (response.ok) {
@@ -139,11 +140,11 @@ const doSearch = async () => {
       showArray(devices);
     } else {
       //Si no sacamos por consola un mensaje de error
-      writeMessage("Hubo un error haciendo la petición");
+      console.error("Hubo un error haciendo la petición");
     }
   } catch (error) {
     //si falla el catch sacamos por consola un mensaje de error
-    writeMessage(error.message);
+    console.error(error.message);
   }
 };
 
@@ -167,4 +168,3 @@ const interval = async (e) => {
 
 //Añadimos el event listener al boton del formulario
 boton.addEventListener("click", interval);
-
