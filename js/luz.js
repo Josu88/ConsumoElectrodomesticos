@@ -161,7 +161,7 @@ const interval = async (e) => {
     SetIn = doSearch();
   } else {
     //Si esta bien ejecutamos la funcion con el setinterval
-    SetIn = setInterval(doSearch, 300000);
+    SetIn = setInterval(doSearch, 3000);
   }
   return SetIn;
 };
