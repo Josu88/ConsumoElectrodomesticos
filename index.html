@@ -11,29 +11,29 @@
     <!--Enlazamos el archivo css al html-->
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body>
+  <header>
     <h1>Precios de la luz</h1>
   </header>
-  <form class="search">
-    <section class="app">
-    <p>Pulsa Buscar para ver los Precios de las luz por horas...</p>
+  <body>
+    <form class="search">
+      <label
+        >Elige el electrodoméstico del que quieres saber su precio de la
+        luz:</label
+      >
+      <select id="SelectDevices">
+        <option value="Frigorífico">Frigorífico</option>
+        <option value="Congelador">Congelador</option>
+        <option value="Lavadora">Lavadora</option>
+        <option value="Lavavajilla">Lavavajilla</option>
+        <option value="Secador">Secador</option>
+        <option value="Televisor">Televisor</option>
+      </select>
+      <button class="btnForm">Buscar</button>
+    </form>
+    <section class="data">
+      <section class="seeArray"></section>
+      <section class="photo"></section>
     </section>
-
-    <img src=""/>
-
-    <label>Elige el electrodoméstico del que quieres saber su precio de la luz:</label>
-          <select id="SelectDevices">
-            <option value="Frigorífico">Frigorífico</option>
-            <option value="Congelador">Congelador</option>
-            <option value="Lavadora">Lavadora</option>
-            <option value="Lavavajilla">Lavavajilla</option>
-            <option value="Secador">Secador</option>
-            <option value="Televisor">Televisor</option>
-          </select>
-
-  <button class="btnForm">Buscar</button>
-  </form>
-  <section class="seeArray"></section>
-  <section class="bwHours"></section>
+    <section class="bwHours"></section>
   </body>
 </html>
