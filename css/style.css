@@ -2,38 +2,28 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+html {
+  min-width: 100%;
+}
+
 header {
-  width: 100vh;
-  background-color: black;
-  color: white;
-  padding-left: 50vh;
-  padding-right: 50vh;
+  background-color: #eee;
+  margin: 0;
+  max-width: 100%;
+  text-align: center;
+  font-size: medium;
+  border-bottom: 0.1rem solid black;
+}
+
+header h1 {
+  margin: 0;
+  background-color: #eee;
+  padding: 1rem;
 }
 
 body {
-  height: 100%;
   margin: 0;
-  display: grid;
-  grid-template-columns: auto;
-  justify-content: center;
   text-align: center;
-  align-items: center;
-  border-bottom: 0.15rem solid;
-}
-
-form {
-  margin-top: 1rem;
-}
-
-.data {
-  display: flex;
-  justify-content: center;
-  flex-direction: row-reverse;
-  width: min-content;
-  padding-right: 4rem;
-  padding-left: 1rem;
-  margin-left: 45rem;
-  margin-top: 1rem;
 }
 
 .btnForm {
@@ -41,4 +31,18 @@ form {
   color: white;
   text-align: center;
 }
+.search {
+  padding: 1rem;
+}
 
+.bwHours {
+  border-bottom: 0.1rem solid black;
+}
+
+@media (min-width: 426px) {
+  .data {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+}
