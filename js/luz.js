@@ -52,6 +52,20 @@ const devices = [
 
 //Definimos las variables a usar
 let counter = 0;
+let contWBWH = 0;
+let contDW = 0;
+let contSA = 0;
+let contDS = 0;
+//Definimos los arrays de objetos a usar en el localstorage
+const arrayDev = [];
+const arrayPrec = [];
+const arayMH = [];
+const arrayPR = [];
+const arrayHour = [];
+const arrayCH = [];
+const arrayPH = [];
+const arrayImg = [];
+const arrayFech = [];
 
 //Seleccionamos el cuadro de texto del formulario del html
 const form = document.querySelector("form.search");
@@ -69,11 +83,19 @@ let Storage = window.localStorage;
 
 //Arrow funtion para escribir la mejor y peor hora en el elemnto
 const writeBetterAndWorstHour = (betterHour, worstHour) => {
+  //añadir la mejor hora y la peor hora a los arrays
+  arayMH[contWBWH] = betterHour;
+  arrayPH[contWBWH] = worstHour;
+
   //Guardamos datos en el localstorage
-  Storage.setItem("MejorHora:", betterHour);
-  Storage.setItem("PeorHora:", worstHour);
+  Storage.setItem("MejorHora:", JSON.stringify(arayMH));
+  Storage.setItem("PeorHora:", JSON.stringify(arrayPH));
+
   //Escribimos la mejor y peor hora en el elemento
   bwHours.innerHTML = `<p>Hora más barata: ${betterHour}h</p> <p>Hora más cara: ${worstHour}h</p>`;
+
+  //Aumentar la variable
+  contWBWH++;
 };
 
 //Funcion que dibuja el array en el html
@@ -91,20 +113,37 @@ const showArray = (array) => {
 
       contentArray.replaceChild(seeArray, contentArray.firstChild);
       img.replaceChild(photo, img.firstChild);
-      //Guardamos datos en el localstorage
-      Storage.setItem("Device:", select.value);
+
+      //Guardamos en el array los valores de devices
+      arrayDev[contSA] = select.value;
     }
   }
+
+  //Guardamos datos en el localstorage
+  Storage.setItem("Device:", JSON.stringify(arrayDev));
+
+  //Aumentar el contador
+  contSA++;
 };
 
 //Arrow funtion para escribir en el h2
 const drawData = (element) => {
   const hour = Hours();
+  //Guardar en los arrrays los valores de hora,consumo,precio y imagen
+  arrayHour[contDW] = hour;
+  arrayCH[contDW] = element.consumption;
+  arrayPH[contDW] = element.price;
+  arrayImg[contDW] = element.img;
+
   //Guardamos datos en el localstorage
-  Storage.setItem("Hora:", hour);
-  Storage.setItem("Consumo por Hora:", element.consumption);
-  Storage.setItem("Precio Hora:", element.price);
-  Storage.setItem("Imagen:", element.img);
+  Storage.setItem("Hora:", JSON.stringify(arrayHour));
+  Storage.setItem("Consumo por Hora:", JSON.stringify(arrayCH));
+  Storage.setItem("Precio Hora:", JSON.stringify(arrayPH));
+  Storage.setItem("Imagen:", JSON.stringify(arrayImg));
+
+  //Aumentar contador
+  contDW++;
+
   //Escribimos datos en el h2
   return `<h2>${element.name}</h2> <p>Consumo por hora: ${element.consumption} ${element.unit}</p> <p>Precio a las ${hour}h: ${element.price}€</p>`;
 };
@@ -134,8 +173,14 @@ const doSearch = async () => {
       //Hayamos la fecha actual
       let ObDate = new Date();
       let dateNow = ObDate.toDateString();
+
+      //Guardar en los arrrays los valores de fecha
+      arrayFech[contDS] = dateNow;
       //Guardamos datos en el localstorage
-      Storage.setItem("Fecha:", dateNow);
+      Storage.setItem("Fecha:", JSON.stringify(arrayFech));
+
+      //Aumentar el contador
+      contDS++;
 
       showArray(devices);
     } else {
